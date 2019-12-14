@@ -1,4 +1,6 @@
 #exportPattern("^[[:alpha:]]+")
+useDynLib(cOPT, .registration=TRUE)
 import(survival, Matrix, gtools, glasso, matrixcalc, mnormt, Rcpp)
+importFrom(Rcpp, evalCpp)
 importFrom("gtools", "combinations")
 export(CNE)
