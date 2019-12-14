@@ -11,7 +11,7 @@ source('R/cOPT/R/dabrowska.R');
 source('R/cOPT/R/linying.R');
 source('R/Density.Calc.R');
 source('R/opt.MonteCarlo.R');
-sourceCpp("R/cOPT/copt.cpp")
+
 
 
 Estimate_T_MonteCalro = function(X, Prob, Prob.Dimension = 2, GEN.BOUND=FALSE){
