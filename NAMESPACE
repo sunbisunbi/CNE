@@ -1,3 +1,4 @@
 #exportPattern("^[[:alpha:]]+")
 import(survival, Matrix, gtools, glasso, matrixcalc, mnormt, Rcpp)
+importFrom("gtools", "combinations")
 export(CNE)
