@@ -6,13 +6,13 @@
 using namespace Rcpp;
 
 // cOPT
-NumericVector cOPT(NumericMatrix SurvD);
-RcppExport SEXP _GAIT_gait(SEXP SurvDSEXP) {
+NumericVector cOPT(NumericMatrix survdata);
+RcppExport SEXP _CNE_cOPT(SEXP survdataSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericMatrix >::type SurvD(SurvDSEXP);
-    rcpp_result_gen = Rcpp::wrap(cOPT(SurvD));
+    Rcpp::traits::input_parameter< NumericMatrix >::type survdata(survdataSEXP);
+    rcpp_result_gen = Rcpp::wrap(cOPT(survdata));
     return rcpp_result_gen;
 END_RCPP
 }
