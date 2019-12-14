@@ -191,6 +191,7 @@ Measure_covariance = function(l.prob, dim, p.Inf=TRUE){
 }
 
 rho_glasso = function(Cov, N.sample, l=1000){
+  library(gtools);
   dim = ncol(Cov);
   Threshold_list = combinations(dim, r=2);
   Threshold_matrix = matrix(rep(0, dim*dim), nrow=dim);

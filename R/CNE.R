@@ -1,6 +1,6 @@
 library(survival);
 library(Matrix);
-require(gtools);
+library(gtools);
 library(igraph);
 library(glasso);
 library(matrixcalc);
