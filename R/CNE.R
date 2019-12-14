@@ -1,3 +1,11 @@
+library(survival);
+library(Matrix);
+require(gtools);
+library(igraph);
+library(glasso);
+library(matrixcalc);
+library(mnormt);
+library(Rcpp);
 source("R/CNE.sub.R")
 
 CNE = function(survdata, method = c('CNE', 'dabrowska', 'linying', 'corcoef','naive.X'), l=10000, GEN.BOUND=T){
