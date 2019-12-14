@@ -2,7 +2,6 @@
 library(survival);
 library(Matrix);
 require(gtools);
-library(igraph);
 library(glasso);
 library(matrixcalc);
 library(mnormt);
