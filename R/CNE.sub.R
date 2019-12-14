@@ -22,7 +22,7 @@ Estimate_T_MonteCalro = function(X, Prob, Prob.Dimension = 2, GEN.BOUND=FALSE){
     cat(Message, "\r");
     c.idx = as.numeric(strsplit(names(Prob)[i], '-')[[1]]);
     if(c.idx[1]==c.idx[2]){next;}
-    
+
     T.Gen = generate_samples(S=Prob[[i]],X_=X[,c(c.idx[1]*2-1,c.idx[1]*2,
                                                  c.idx[2]*2-1,c.idx[2]*2)],
                              GEN.BOUND=GEN.BOUND,N=1000);
@@ -49,7 +49,7 @@ opt_ = function(X, dimension=2, opt.path="copt",
   sequences = combinations(n=Ncolumn, r=dimension, repeats.allowed = repeats);
   Pairs = NULL;
   Prob.Density = list();
-  
+
   # opt for each pair of columns
   for(i in 1:nrow(sequences)){
     Pairs = c(Pairs, paste(sequences[i,], collapse = "-") );
@@ -62,7 +62,7 @@ opt_ = function(X, dimension=2, opt.path="copt",
     write.table(X[,column.idx], file = inputfile, sep = '\t', col.names = FALSE, row.names = FALSE);
     # Set output file name
     outputfile = paste(output.name, extension, sep="");
-    
+
     # run opt
     Message = sprintf("%d dimension OPT for %s columns", dimension, paste(sequences[i,], collapse = "-"));
     cat(Message, "\r");
@@ -71,16 +71,17 @@ opt_ = function(X, dimension=2, opt.path="copt",
     flush.console();
   }
   names(Prob.Density) = Pairs;
-  
+
   return(Prob.Density);
 }
 
 opt_run = function(opt.path="copt", inputfile, outputfile){
-  
+
   #system(paste(opt.path, "-d 4 -e 0.05 -o", outputfile, inputfile, sep=" ") );
   cOPT(as.matrix(read.table(inputfile, sep='\t', header = FALSE)))
+  if(!file.exists(outputfile)){return(0)}
   Scopt = as.matrix(read.table(outputfile, sep = '\t', header = FALSE) );
-  
+
   return(Scopt);
 }
 
@@ -89,14 +90,14 @@ opt_run = function(opt.path="copt", inputfile, outputfile){
 #########################
 probability_estimation = function(X, method = c("dabrowska", "linying"), repeats = FALSE){
   method = match.arg(method)
-  
+
   Ncolumn = ncol(X)/2;
   Nrow = nrow(X);
   # nCr
   sequences = combinations(n=Ncolumn, r=2, repeats.allowed = repeats);
   Pairs = NULL;
   Prob.Density = list();
-  
+
   # Probability estimation for each pair of columns
   for(i in 1:nrow(sequences)){
     Pairs = c(Pairs, paste(sequences[i,], collapse = "-") );
@@ -119,7 +120,7 @@ probability_estimation = function(X, method = c("dabrowska", "linying"), repeats
     flush.console();
   }
   names(Prob.Density) = Pairs;
-  
+
   return(Prob.Density);
 }
 
@@ -142,7 +143,7 @@ dabrowska_run = function(X, A1, A2){
   }
   SS[,5] = SS[,6]/(SS[,2]-SS[,1])/(SS[,4]-SS[,3]);
   Sdb = SS
-  
+
   return(Sdb);
 }
 
@@ -153,13 +154,13 @@ linying_run = function(X, A1, A2){
   X1 = Surv(X[,1],X[,2]);
   X2 = Surv(X[,3],X[,4]);
   X = cbind(as.data.frame(X1),X2);
-  
+
   tlist1 = c(A1,Inf);
   tlist2 = c(A2,Inf);
   SS = NULL;
   for( ii in 2:(length(tlist1)) ) {
     for( jj in 2:(length(tlist2)) ) {
-      p = linying(X,tlist1[ii-1],tlist2[jj-1]) - linying(X,tlist1[ii-1],tlist2[jj]) - 
+      p = linying(X,tlist1[ii-1],tlist2[jj-1]) - linying(X,tlist1[ii-1],tlist2[jj]) -
         linying(X,tlist1[ii],tlist2[jj-1]) + linying(X,tlist1[ii],tlist2[jj]);
       if(is.nan(p)){p=0;}
       if(is.infinite(p)){p=1;}
@@ -169,7 +170,7 @@ linying_run = function(X, A1, A2){
   }
   SS[,5] = SS[,6]/(SS[,2]-SS[,1])/(SS[,4]-SS[,3]);
   Sly = SS;
-  
+
   return(Sly);
 }
 
@@ -178,12 +179,12 @@ Measure_covariance = function(l.prob, dim, p.Inf=TRUE){
   COV = matrix(rep(0,dim*dim), nrow=dim);
   MEAN = mean_total(l.prob, dim);
   name.prob = names(l.prob);
-  
+
   for(i in 1:length(l.prob)){
     c.idx = as.numeric(strsplit(name.prob[i],'-')[[1]]);
     COV[c.idx[1], c.idx[2]] = dist_cov(l.prob[[i]], MEAN[c.idx[1]], MEAN[c.idx[2]], p.Inf=p.Inf, Monte.C=Monte.C)
   }
-  
+
   RES = COV + t(COV);
   diag(RES) = diag(RES)/2;
   return(RES);
