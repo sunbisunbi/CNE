@@ -8,6 +8,7 @@ library(mnormt);
 library(Rcpp);
 source("R/CNE.sub.R")
 
+#' @export
 CNE = function(survdata, method = c('CNE', 'dabrowska', 'linying', 'corcoef','naive.X'), l=10000, GEN.BOUND=T){
   method = match.arg(method)
   N.sample = nrow(survdata)
