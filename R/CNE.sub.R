@@ -7,12 +7,12 @@ library(glasso);
 library(matrixcalc);
 library(mnormt);
 library(Rcpp);
-source('cOPT/R/opt2d.R');
-source('cOPT/R/dabrowska.R');
-source('cOPT/R/linying.R');
-source('./Density.Calc.R');
-source('./opt.MonteCarlo.R');
-sourceCpp("cOPT/copt.cpp")
+source('R/cOPT/R/opt2d.R');
+source('R/cOPT/R/dabrowska.R');
+source('R/cOPT/R/linying.R');
+source('R/Density.Calc.R');
+source('R/opt.MonteCarlo.R');
+sourceCpp("R/cOPT/copt.cpp")
 
 
 Estimate_T_MonteCalro = function(X, Prob, Prob.Dimension = 2, GEN.BOUND=FALSE){
