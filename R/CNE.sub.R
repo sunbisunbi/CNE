@@ -1,16 +1,4 @@
 # library
-library(survival);
-library(Matrix);
-require(gtools);
-library(glasso);
-library(matrixcalc);
-library(mnormt);
-library(Rcpp);
-source('R/opt2d.R');
-source('R/dabrowska.R');
-source('R/linying.R');
-source('R/Density.Calc.R');
-source('R/opt.MonteCarlo.R');
 
 
 
@@ -191,7 +179,6 @@ Measure_covariance = function(l.prob, dim, p.Inf=TRUE){
 }
 
 rho_glasso = function(Cov, N.sample, l=1000){
-  library(gtools);
   dim = ncol(Cov);
   Threshold_list = combinations(dim, r=2);
   Threshold_matrix = matrix(rep(0, dim*dim), nrow=dim);
