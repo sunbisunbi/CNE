@@ -206,7 +206,7 @@ rho_glasso = function(Cov, N.sample, l=1000){
     BIC[i] = N.sample*(-log(determinant(wi)$modulus) + sum(diag(wi*Cov)))+p_off_d*log(N.sample);
     idx = Threshold_matrix==0&wi==0;
     Threshold_matrix[idx] = rholist[i];
-    cat(sprintf("(%d/%d)",i,l),'\r');
+    cat(sprintf("(%d/%d)                              ",i,l),'\r');
     flush.console();
   }
   best.rho = rholist[which.min(BIC)];
