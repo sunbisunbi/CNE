@@ -1,11 +1,4 @@
 # library
-library(survival);
-library(Matrix);
-require(gtools);
-library(glasso);
-library(matrixcalc);
-library(mnormt);
-library(Rcpp);
 source('R/cOPT/R/opt2d.R');
 source('R/cOPT/R/dabrowska.R');
 source('R/cOPT/R/linying.R');
