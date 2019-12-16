@@ -17,7 +17,7 @@ source('R/opt.MonteCarlo.R');
 Estimate_T_MonteCalro = function(X, Prob, Prob.Dimension = 2, GEN.BOUND=FALSE){
   MC.T = matrix(rep(0, nrow(X)*ncol(X)/2), nrow=nrow(X));
   for(i in 1:length(Prob)){
-    Message = sprintf("measure T for %s columns\n", names(Prob)[i]);
+    Message = sprintf("measure T for %s columns                              ", names(Prob)[i]);
     cat(Message, "\r");
     c.idx = as.numeric(strsplit(names(Prob)[i], '-')[[1]]);
     if(c.idx[1]==c.idx[2]){next;}
@@ -63,7 +63,7 @@ opt_ = function(X, dimension=2, opt.path="copt",
     outputfile = paste(output.name, extension, sep="");
 
     # run opt
-    Message = sprintf("%d dimension OPT for %s columns\n", dimension, paste(sequences[i,], collapse = "-"));
+    Message = sprintf("%d dimension OPT for %s columns                               ", dimension, paste(sequences[i,], collapse = "-"));
     cat(Message, "\r");
 
     Prob.Density[[length(Prob.Density)+1]] = opt_run(opt.path=opt.path, inputfile, outputfile);
@@ -108,7 +108,7 @@ probability_estimation = function(X, method = c("dabrowska", "linying"), repeats
     A1 = seq(from = MIN1, to = MAX1*1.1, by = (MAX1*1.1-MIN1)/20);
     A2 = seq(from = MIN2, to = MAX2*1.1, by = (MAX2*1.1-MIN2)/20);
     X_ = cbind(X1[,1], X1[,2], X2[,1], X2[,2]);
-    Message = sprintf("%s method %s columns\n", method, paste(sequences[i,], collapse = "-"));
+    Message = sprintf("%s method %s columns                                   ", method, paste(sequences[i,], collapse = "-"));
     cat(Message, "\r");
     if(method=="dabrowska"){
       Prob.Density[[length(Prob.Density)+1]] = dabrowska_run(X_, A1, A2);
