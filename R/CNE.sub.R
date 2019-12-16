@@ -6,9 +6,9 @@ library(glasso);
 library(matrixcalc);
 library(mnormt);
 library(Rcpp);
-source('R/cOPT/R/opt2d.R');
-source('R/cOPT/R/dabrowska.R');
-source('R/cOPT/R/linying.R');
+source('R/addon/opt2d.R');
+source('R/addon/dabrowska.R');
+source('R/addon/linying.R');
 source('R/Density.Calc.R');
 source('R/opt.MonteCarlo.R');
 

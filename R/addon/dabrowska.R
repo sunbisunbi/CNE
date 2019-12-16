@@ -1,18 +1,18 @@
 ################################################################
 #######(y1, y2):    observed bivariate survival times  #########
 #######(d1, d2):    censoring indicators               #########
-########time.matrix:two-column matrix, whose rows are 
+########time.matrix:two-column matrix, whose rows are
 ########            pairs of time at which the survival
 ########            probability will be calculated.
-########            If left as NULL, then the survival 
+########            If left as NULL, then the survival
 ########            probability will be calculated for
 ########            all the possible grid points expanded
-########            by observed bivariate survival times 
-########Outputs are survival probability at given time #########                     
+########            by observed bivariate survival times
+########Outputs are survival probability at given time #########
 ########If the survival probability is zero, then it   #########
 ########is not identifiable at that time point         #########
 ################################################################
-
+library(survival)
 dabrowska = function(y1, y2, d1, d2, time.matrix=NULL) {
 
 	n=length(y1)
@@ -35,7 +35,7 @@ dabrowska = function(y1, y2, d1, d2, time.matrix=NULL) {
 	for( j in 1:n2 ) {
 		id=(1:n)[y2==grd2[j] & d2==1]
     		count=0
-    		for( i in id ) count=count+(grd1<=y1[i]) 
+    		for( i in id ) count=count+(grd1<=y1[i])
     		K01[,j]=count
     	}
 
@@ -43,16 +43,16 @@ dabrowska = function(y1, y2, d1, d2, time.matrix=NULL) {
 	for(i in 1:n1) {
 		id=(1:n)[y1==grd1[i] & d1==1]
     		count=0
-    		for( j in id ) count=count+(grd2<=y2[j]) 
+    		for( j in id ) count=count+(grd2<=y2[j])
     		K10[i,]=count
-    	} 
+    	}
 
 	for(i in 1:n1) {
 		id=(1:n)[y1==grd1[i] & d1==1]
     		count=0
-    		for(j in id) count=count+(grd2==y2[j])*d2[j] 
+    		for(j in id) count=count+(grd2==y2[j])*d2[j]
     		K11[i,]=count
-    	} 
+    	}
 
 	count.tot=rep(1:n2, table(y2))
 
@@ -64,7 +64,7 @@ dabrowska = function(y1, y2, d1, d2, time.matrix=NULL) {
     		k=length(index)
     		final=rep((tot-c(0, cumsum(number[-k]))), c(index[1], index[-1]-index[-k]))
     		R[i,]=c(final, rep(0, n2-length(final)))
-    	}   
+    	}
 
 	L=R*(R-K10-K01+K11)/(R-K10)/(R-K01)
 
@@ -81,12 +81,12 @@ dabrowska = function(y1, y2, d1, d2, time.matrix=NULL) {
    		s2=rep(1, n2)
    		for( i in 1:n1 ) { s1[i]=min(surv1[time1<=grd1[i]]) }
    		for( i in 1:n2 ) { s2[i]=min(surv2[time2<=grd2[i]]) }
-   
+
    		r.prod=apply(log(L), 1, cumsum)
    		r.prod=exp(apply(r.prod, 1, cumsum))
    		surv.prob=t(t(r.prod*s1)*s2)
 
-   		surv.prob[is.na(surv.prob)]=0  
+   		surv.prob[is.na(surv.prob)]=0
 
    		return(list(t1.grid=grd1, t2.grid=grd2, surv.prob=surv.prob))
    	}
@@ -102,7 +102,7 @@ dabrowska = function(y1, y2, d1, d2, time.matrix=NULL) {
 
    		time.matrix=matrix(time.matrix, ncol=2)
    		K=length(time.matrix[,1])
-   
+
    		surv.prob=rep(0, K)
    		for(i in 1:K) {
 			t10=time.matrix[i,1]
