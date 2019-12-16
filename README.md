@@ -27,8 +27,9 @@ Example:
 ```
 # 3 events
 # Network: 1-2 3
+library(CNE)
 set.seed(12345)
-Nsample = 1000
+Nsample = 500
 
 T1 = rexp(Nsample,1)
 T2 = T1 + rexp(Nsample,1)
@@ -46,4 +47,10 @@ d3 = T1<=C[,3]
 survdata = cbind(X1,d1,X2,d2,X3,d3)
 
 CNE(survdata)
+
+#      Node1 Node2       rho                                     
+# [1,]     1     2 0.3007167
+# [2,]     1     3 0.1432915
+# [3,]     2     3 0.1872563
+
 ```
