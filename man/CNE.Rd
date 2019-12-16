@@ -5,15 +5,18 @@
 CNE(survdata)
 }
 \description{
-CNE
+Network Estimation for the right-censored times to the occurrence of multiple events data.
 }
 \examples{
-# 1-2    3
+# 3 events
+# Network: 1-2 3
 
-T1 = rexp(100,1)
-T2 = T1 + rexp(100,1)
-T3 = rexp(100,1)
-C = matrix(rexp(300),ncol=3)
+Nsample = 100
+
+T1 = rexp(Nsample,1)
+T2 = T1 + rexp(Nsample,1)
+T3 = rexp(Nsample,1)
+C = matrix(rexp(Nsample*3),ncol=3)
 
 X1 = apply(cbind(T1,C[,1]),1,min)
 X2 = apply(cbind(T2,C[,2]),1,min)

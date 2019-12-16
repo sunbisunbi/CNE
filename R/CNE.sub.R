@@ -1,7 +1,3 @@
-# library
-
-
-
 Estimate_T_MonteCalro = function(X, Prob, Prob.Dimension = 2, GEN.BOUND=FALSE){
   MC.T = matrix(rep(0, nrow(X)*ncol(X)/2), nrow=nrow(X));
   for(i in 1:length(Prob)){

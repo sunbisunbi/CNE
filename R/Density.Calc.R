@@ -1,8 +1,3 @@
-require(mnormt);
-library(gtools);
-
-
-
 marginal_dist = function(prob){
   x = sort(unique(c(prob[,1], prob[,2])));
   m.dist = cbind(x[1:(length(x)-1)],x[2:length(x)],rep(0,length(x)-1));
@@ -16,7 +11,7 @@ marginal_dist = function(prob){
     } else{
       for(j in idx){
         tmp.p = tmp.p + (m.dist[i,2]-m.dist[i,1])*(prob[j,6])/((prob[j,2]-prob[j,1]));
-      }     
+      }
     }
     m.dist[i,3] = tmp.p;
   }
@@ -36,11 +31,11 @@ dist_mean = function(prob, p.Inf = TRUE, lambda=1){
     }
     if(p.Inf) {
       for(i in idx.n){
-        m = m + prob[i,3]*(prob[i,1]+1/lambda);       
+        m = m + prob[i,3]*(prob[i,1]+1/lambda);
       }
     }
   }
-  
+
   return(m);
 }
 
@@ -157,29 +152,29 @@ dist_cov = function(prob, Ex, Ey, p.Inf = TRUE, lambda=1, B=10000, Monte.C = FAL
     Exy = xy_mean_dist(prob, p.Inf = p.Inf);
     COV = Exy - Ex*Ey;
   }
-  
+
   return(COV);
 }
 
 MY_combinations = function(n, r, v = 1:n, set = TRUE, repeats.allowed=FALSE){
 
-  if(mode(n) != "numeric" || length(n) != 1 
-     || n < 1 || (n %% 1) != 0) stop("bad value of n") 
-  if(mode(r) != "numeric" || length(r) != 1 
-     || r < 1 || (r %% 1) != 0) stop("bad value of r") 
-  if(!is.atomic(v) || length(v) < n) 
+  if(mode(n) != "numeric" || length(n) != 1
+     || n < 1 || (n %% 1) != 0) stop("bad value of n")
+  if(mode(r) != "numeric" || length(r) != 1
+     || r < 1 || (r %% 1) != 0) stop("bad value of r")
+  if(!is.atomic(v) || length(v) < n)
     stop("v is either non-atomic or too short")
   if( (r > n) & repeats.allowed==FALSE)
     stop("r > n and repeats.allowed=FALSE")
   if(set) {
-    
+
     if (length(v) < n) stop("too few different elements")
   }
   v0 <- vector(mode(v), 0)
   ## Inner workhorse
   if(repeats.allowed)
     sub <- function(n, r, v)
-    { 
+    {
       if(r == 0) v0 else
         if(r == 1) matrix(v, n, 1) else
           if(n == 1) matrix(v, 1, r) else
@@ -188,7 +183,7 @@ MY_combinations = function(n, r, v = 1:n, set = TRUE, repeats.allowed=FALSE){
     }
   else
     sub <- function(n, r, v)
-    { 
+    {
       if(r == 0) v0 else
         if(r == 1) matrix(v, n, 1) else
           if(r == n) matrix(v, 1, n) else
@@ -198,10 +193,9 @@ MY_combinations = function(n, r, v = 1:n, set = TRUE, repeats.allowed=FALSE){
   sub(n, r, v[1:n])
 }
 
-   
-        
-        
-        
-        
 
-        
+
+
+
+
+

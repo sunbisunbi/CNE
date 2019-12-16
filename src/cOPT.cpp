@@ -55,7 +55,7 @@ NumericVector cOPT(NumericMatrix SurvD)
   int max_depth = 5;
   double min_num_points = 1.0;
   int max_iter = 5;
-  double min_error = 0.05;
+  double min_error = 0.01;
   double rho = 0.5;
   double alpha = 0.5;
   bool int_part = false;
