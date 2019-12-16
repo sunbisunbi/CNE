@@ -6,7 +6,6 @@ CNE = function(survdata, method = c('CNE', 'dabrowska', 'linying', 'corcoef','na
   N.sample = nrow(survdata)
   dimension = ncol(survdata)/2
   if(method=='CNE'){
-    sourceCpp("R/cOPT/copt.cpp")
     Den = opt_(survdata, dimension = 2, repeats = TRUE);
     estimated.T = Estimate_T_MonteCalro(survdata, Den, GEN.BOUND = GEN.BOUND);
     estimated.cov = cov(estimated.T);
