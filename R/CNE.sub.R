@@ -63,7 +63,7 @@ opt_ = function(X, dimension=2, opt.path="copt",
     outputfile = paste(output.name, extension, sep="");
 
     # run opt
-    Message = sprintf("%d dimension OPT for %s columns", dimension, paste(sequences[i,], collapse = "-"));
+    Message = sprintf("%d dimension OPT for %s columns                ", dimension, paste(sequences[i,], collapse = "-"));
     cat(Message, "\r");
 
     Prob.Density[[length(Prob.Density)+1]] = opt_run(opt.path=opt.path, inputfile, outputfile);
@@ -80,7 +80,8 @@ opt_run = function(opt.path="copt", inputfile, outputfile){
   cOPT(as.matrix(read.table(inputfile, sep='\t', header = FALSE)))
   if(!file.exists(outputfile)){return(0)}
   Scopt = as.matrix(read.table(outputfile, sep = '\t', header = FALSE) );
-
+  file.remove(inputfile)
+  file.remove(outputfile)
   return(Scopt);
 }
 
