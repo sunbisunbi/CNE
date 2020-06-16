@@ -2,7 +2,18 @@
 \alias{CNE}
 \title{CNE}
 \usage{
-CNE(survdata)
+CNE(survdata, method = c('CNE', 'dabrowska', 'linying', 'corcoef','naive.X'), l=10000, cv=FALSE, GEN.BOUND=TRUE)
+}
+\arguments{
+  \item{survdata}{Survival Data including censoring indicator}
+  \item{methods}{Network estimation methods. Default 'CNE'}
+  \item{l}{Length of penalty parameter. Default 10,000}
+  \item{cv}{Cross validation for a penalty parameter. Default FALSE}
+  \item{GEN.BOUND}{Monte Carlo simulation option. Default TRUE}
+}
+\value{
+  \item{cv.rho}{Optimal penalty parameter by cv (if cv=T)}
+  \item{estimated.edge}{Estimated edges}
 }
 \description{
 Network Estimation for the right-censored times to the occurrence of multiple events data.
