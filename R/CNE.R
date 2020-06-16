@@ -1,5 +1,5 @@
 #' @export
-CNE = function(survdata, method = c('CNE', 'dabrowska', 'linying', 'corcoef','naive.X'), l=10000, GEN.BOUND=T){
+CNE = function(survdata, method = c('CNE', 'dabrowska', 'linying', 'corcoef','naive.X'), l=10000, cv=F, GEN.BOUND=T){
   method = match.arg(method)
   N.sample = nrow(survdata)
   dimension = ncol(survdata)/2
@@ -8,6 +8,11 @@ CNE = function(survdata, method = c('CNE', 'dabrowska', 'linying', 'corcoef','na
     estimated.T = Estimate_T_MonteCalro(survdata, Den, GEN.BOUND = GEN.BOUND);
     estimated.cov = cov(estimated.T);
     estimated.edge = rho_glasso(estimated.cov, N.sample, l=l);
+    if(cv){
+      cv.rho = CVglasso(estimated.T)
+      res = list(cv.rho = cv.rho[[3]][2], Edges = estimated.edge)
+      return(res)
+    }
   } else if(method=='dabrowska'){
     Den = probability_estimation(survdata, method = "dabrowska", repeats=TRUE);
     estimated.T = Estimate_T_MonteCalro(survdata, Den, GEN.BOUND = GEN.BOUND);

@@ -9,5 +9,5 @@ Description: Network Estimation for the right-censored times to the occurrence o
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
-Imports: gtools, survival, glasso, Matrix, matrixcalc, mnormt, Rcpp (>= 1.0.3)
+Imports: gtools, survival, glasso, CVglasso, Matrix, matrixcalc, mnormt, Rcpp (>= 1.0.3)
 LinkingTo: Rcpp
